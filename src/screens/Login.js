@@ -44,7 +44,7 @@ const Login = () => {
       navigate("/");
 
     }
-  }, []);
+  }, [isLogin]);
 
   return (
     <>
