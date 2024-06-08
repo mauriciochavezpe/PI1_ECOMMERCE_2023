@@ -33,7 +33,7 @@ const initialState = {
   categories:[
     "",
     "Periféricos",
-    "Monitores",
+    "Monitor",
     "Laptops",
     "Case (Cajas de PC)",
     "Mouse",
