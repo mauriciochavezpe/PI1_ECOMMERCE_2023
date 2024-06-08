@@ -41,7 +41,7 @@ const Login = () => {
   useEffect(() => {
     initAuth2(code);
     if(isLogin){
-      navigate("/");
+      // navigate("/");
 
     }
   }, [isLogin]);
