@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Row, Col, ListGroup, Form, Container, Button } from "react-bootstrap";
-import { listProducts } from "../actions/productActions";
+// import { listProducts } from "../actions/productActions";
+import { getAllProducts } from "../store/slice/sliceProduct";
+
 import { getMyUser } from "../store/slice/sliceUserLogin";
- 
 
 const FilterHome = () => {
   const dispatch = useDispatch();
   // const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
 
-  var {loadingModal} = useSelector((state) => state.productSlice);
-  var {categories, marcas} = useSelector((state) => state.utilSlice);
-  console.log("newReduxtools", loadingModal);
+  // var { loadingModal } = useSelector((state) => state.productSlice);
+  // var { categories, marcas } = useSelector((state) => state.utilSlice);
 
   const [filter, setFilter] = useState({
     name: "",
@@ -22,9 +22,89 @@ const FilterHome = () => {
     maxPrice: "",
   });
 
-  const onTestRedux= (item)=>{
-    dispatch(getMyUser())
-  };
+  const  categories=[
+    "",
+    "Periféricos",
+    "Monitores",
+    "Laptops",
+    "Case (Cajas de PC)",
+    "Mouse",
+    "Teclados",
+    "Procesadores (CPUs)",
+    "Placas Base (Motherboards)",
+    "Memoria RAM",
+    "Almacenamiento",
+    "Tarjetas Gráficas (GPUs)",
+    "Fuentes de Alimentación (PSUs)",
+    "Sistemas de Refrigeración",
+    "Tarjetas de Expansión",
+    "Accesorios y Cables",
+    "Unidades Ópticas",
+    "Software",
+    "Redes",
+    "Impresoras y Escáneres",
+    "Componentes y Repuestos",
+    "Almacenamiento Externo"
+  ];
+  const marcas=[
+    "",
+    "Intel",
+    "AMD",
+    "NVIDIA",
+    "ASUS",
+    "MSI",
+    "Gigabyte",
+    "Corsair",
+    "G.SKILL",
+    "Crucial",
+    "Kingston",
+    "Western Digital",
+    "Seagate",
+    "Samsung",
+    "Cooler Master",
+    "Thermaltake",
+    "EVGA",
+    "NZXT",
+    "Logitech",
+    "Razer",
+    "HP",
+    "Dell",
+    "Acer",
+    "Lenovo",
+    "Apple",
+    "Microsoft",
+    "BenQ",
+    "LG",
+    "AOC",
+    "Philips",
+    "SteelSeries",
+    "HyperX",
+    "Toshiba",
+    "ADATA",
+    "Be Quiet!",
+    "Noctua",
+    "Fractal Design",
+    "Rosewill",
+    "Asrock",
+    "Patriot",
+    "Alienware",
+    "Sapphire",
+    "XFX",
+    "Zotac",
+    "PNY",
+    "ViewSonic",
+    "Roccat",
+    "Mad Catz",
+    "Redragon",
+    "Cougar",
+    "Thermaltake",
+    "Biostar",
+    "Lian Li",
+    "SilverStone",
+    "Enermax"
+  ]
+
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -42,8 +122,7 @@ const FilterHome = () => {
     });
 
     //añadimos un filtro como obj
-    dispatch(listProducts(obj));
-
+    dispatch(getAllProducts(obj));
   };
   return (
     <>
@@ -56,11 +135,11 @@ const FilterHome = () => {
               <Form.Control
                 as="select"
                 name="category"
+                value={filter.category}
+                // onChange={(e)=>handleInputChange(e)}
                 onChange={handleInputChange}
               >
-                {/* Opciones de categoría */}
-                {/* {categoryList.categories.map((e, i) => { */}
-                { categories.map((e, i) => {
+                {categories.map((e, i) => {
                   return (
                     <option key={i} value={e}>
                       {e}
@@ -76,8 +155,10 @@ const FilterHome = () => {
               <Form.Control
                 as="select"
                 name="brand"
-                onChange={handleInputChange}
-              >
+                value={filter.brand}
+
+                  // onChange={(e)=>handleInputChange(e)}
+                onChange={handleInputChange}>
                 {/* Opciones de categoría */}
                 {/* {categoryList.brands.map((e, i) => { */}
 
@@ -98,7 +179,8 @@ const FilterHome = () => {
                 type="text"
                 value={filter.name}
                 name="name"
-                onChange={handleInputChange}
+                   // onChange={(e)=>handleInputChange(e)}
+                   onChange={handleInputChange}
                 placeholder="Nombre"
                 defaultValue={filter.name}
               />
@@ -114,7 +196,9 @@ const FilterHome = () => {
                   name="minPrice"
                   placeholder="min"
                   value={filter.minPrice}
+                  // onChange={(e)=>handleInputChange(e)}
                   onChange={handleInputChange}
+
                 />
                 -
                 <Form.Control
@@ -123,8 +207,10 @@ const FilterHome = () => {
                   name="maxPrice"
                   placeholder="max"
                   value={filter.maxPrice}
-                  onChange={handleInputChange}
-                />
+                    // onChange={(e)=>handleInputChange(e)}
+                    onChange={handleInputChange}
+
+/>
               </div>
             </Form.Group>
           </Col>
@@ -135,7 +221,6 @@ const FilterHome = () => {
           </Col>
         </Row>
       </Form>
-     
     </>
   );
 };
