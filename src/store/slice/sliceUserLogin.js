@@ -72,11 +72,9 @@ const productSlice = createSlice({
       state.userData[aUserDataUpdate.key] = aUserDataUpdate.value;
     },
     IsLogin(state, action) {
-    const navigate = useNavigate();
 
       state.isLogin = action.payload;
       state.value = 100;
-      navigate("/");
 
     },
     addFilter(state, action) {

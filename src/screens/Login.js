@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import { getMyUser } from "../store/slice/sliceUserLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { oauth2 } from "../util/oAuth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  //https://pi-1-ecommerce-2023-mauriciochavezpes-projects.vercel.app/?code=7bbd404e-7395-4a05-8f64-d1d197054888
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const { isLogin, isUserAdmin, value } = useSelector(
     (state) => state.userLogin
@@ -38,6 +40,10 @@ const Login = () => {
 
   useEffect(() => {
     initAuth2(code);
+    if(isLogin){
+      navigate("/");
+
+    }
   }, []);
 
   return (
