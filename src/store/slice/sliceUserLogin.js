@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const initialState = {
   userData: {},
@@ -59,6 +61,7 @@ export const deleteMyUser = createAsyncThunk(
   }
 );
 
+
 const productSlice = createSlice({
   name: "userLogin",
   initialState,
@@ -69,8 +72,12 @@ const productSlice = createSlice({
       state.userData[aUserDataUpdate.key] = aUserDataUpdate.value;
     },
     IsLogin(state, action) {
+    const navigate = useNavigate();
+
       state.isLogin = action.payload;
       state.value = 100;
+      navigate("/");
+
     },
     addFilter(state, action) {
       console.log(action.payload);
