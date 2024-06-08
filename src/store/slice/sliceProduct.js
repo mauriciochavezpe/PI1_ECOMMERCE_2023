@@ -17,14 +17,15 @@ var URL = process.env.REACT_APP_URL_ALL + "/products";
 export const getAllProducts = createAsyncThunk(
   "productSlice/getAllProducts",
   async (filter) => {
+    let sPath = URL;
     if (filter) {
-      URL += `?category=${filter.category || ""}&brand=${
-        filter.brand || ""
-      }&name=${filter.name || ""}&minPrice=${filter.minPrice || ""}&maxPrice=${
-        filter.maxPrice || ""
-      }`;
+      sPath =
+        sPath +
+        `?category=${filter.category || ""}&brand=${filter.brand || ""}&name=${
+          filter.name || ""
+        }&minPrice=${filter.minPrice || ""}&maxPrice=${filter.maxPrice || ""}`;
     }
-    const response = await axios(URL); // Use the relative path to your API endpoint
+    const response = await axios(sPath); // Use the relative path to your API endpoint
     const data = await response;
     return data.data;
   }
