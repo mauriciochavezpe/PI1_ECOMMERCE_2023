@@ -15,6 +15,7 @@ const Orders = () => {
 
   useEffect(() => {
     dispatch(getAllOrders());
+    
   }, [dispatch]);
 
   const handleShowDetail = (item) => {

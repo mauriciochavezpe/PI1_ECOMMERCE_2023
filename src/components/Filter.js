@@ -8,9 +8,10 @@ import { getMyUser } from "../store/slice/sliceUserLogin";
 
 const FilterHome = () => {
   const dispatch = useDispatch();
-  const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
+  // const categoryList = useSelector((state) => state.categoryList); //sacado del store.js
 
   var {loadingModal} = useSelector((state) => state.productSlice);
+  var {categories, marcas} = useSelector((state) => state.utilSlice);
   console.log("newReduxtools", loadingModal);
 
   const [filter, setFilter] = useState({
@@ -58,20 +59,10 @@ const FilterHome = () => {
               >
                 {/* Opciones de categoría */}
                 {/* {categoryList.categories.map((e, i) => { */}
-                {[
-                  {
-                    categoria: "",
-                  },
-                  {
-                    categoria: "ACCESORIOS COMPUTACIÓN",
-                  },
-                  {
-                    categoria: "IMPRESORAS",
-                  },
-                ].map((e, i) => {
+                { categories.map((e, i) => {
                   return (
-                    <option key={i} value={e.categoria}>
-                      {e.categoria}
+                    <option key={i} value={e}>
+                      {e}
                     </option>
                   );
                 })}
@@ -89,20 +80,10 @@ const FilterHome = () => {
                 {/* Opciones de categoría */}
                 {/* {categoryList.brands.map((e, i) => { */}
 
-                {[
-                  {
-                    categoria: "",
-                  },
-                  {
-                    categoria: "ACCESORIOS COMPUTACIÓN",
-                  },
-                  {
-                    categoria: "IMPRESORAS",
-                  },
-                ].map((e, i) => {
+                {marcas.map((e, i) => {
                   return (
-                    <option key={i} value={e.brand}>
-                      {e.brand}
+                    <option key={i} value={e}>
+                      {e}
                     </option>
                   );
                 })}

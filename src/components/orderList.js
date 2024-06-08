@@ -3,6 +3,9 @@ import { Table, Badge, Button } from "react-bootstrap";
 
 const formatDate = (dateString) => {
   const date = new Date(dateString);
+
+  date.setHours(date.getHours() - 5);
+
   const day = date.getDate().toString().padStart(2, "0");
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const year = date.getFullYear();
