@@ -18,27 +18,7 @@ const HomeScreen = ({  history }) => {
   );
  const { isLogin,userData } = useSelector((state) => state.userLogin);
 
-  
-
-  // const url = window.location.href;
-
-  // const urlObj = new URL(url);
-
-  // const code = urlObj.searchParams.get("code");
-
-  // let objCurrent = {};
-  // if (code) {
-  //   if (!localStorage.getItem("TOKEN_COGNITO")) {
-  //     objCurrent.code = code;
-  //   } else {
-  //     let data = localStorage.getItem("TOKEN_COGNITO");
-  //     objCurrent = JSON.parse(data);
-  //     objCurrent.code = code;
-  //   }
-  //   localStorage.setItem("TOKEN_COGNITO", JSON.stringify(objCurrent));
-  // }
-  // console.log("isLogin", isLogin);
-  // console.log("userData", userData);
+ 
 
   const onToggle = (id) => {
     dispatch(changeLoadingModal(id));
@@ -47,7 +27,7 @@ const HomeScreen = ({  history }) => {
 
   useEffect(() => {
     dispatch(getAllProducts());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

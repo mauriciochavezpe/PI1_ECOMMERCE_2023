@@ -43,6 +43,7 @@ const FilterHome = () => {
 
     //añadimos un filtro como obj
     dispatch(listProducts(obj));
+
   };
   return (
     <>
@@ -131,9 +132,6 @@ const FilterHome = () => {
             <Button className="bheight" variant="primary" type="submit">
               Aplicar
             </Button>
-            {/* <Button className="" variant="success" onClick={onTestRedux}>
-              Aplicar2
-            </Button> */}
           </Col>
         </Row>
       </Form>
