@@ -31,6 +31,7 @@ const initialState = {
   tipodocumentos: ["DNI", "CARNET DE EXTRANJERIA", "RUC", "PASAPORTE"],
   status: "success",
   categories:[
+    "",
     "Periféricos",
     "Monitores",
     "Laptops",
@@ -54,6 +55,7 @@ const initialState = {
     "Almacenamiento Externo"
   ],
   marcas:[
+    "",
     "Intel",
     "AMD",
     "NVIDIA",
