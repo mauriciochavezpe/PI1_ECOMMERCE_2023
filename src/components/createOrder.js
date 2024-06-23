@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Col, Form, Button, Table } from "react-bootstrap";
 import { changeQuanty, createOrder } from "../store/slice/sliceOrder";
-
+const urlpublic = process.env.REACT_APP_API_MERCADO_PAGO_PUBLIC_KEY;
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 const formatterPay = () => {
   console.log("dasdadasda");
 };
+
 const OrderCreate = () => {
+  initMercadoPago(urlpublic, {
+    locale: "es-PE",
+  });
+
   const { orderItemsSelected } = useSelector((state) => state.orderSlice);
 
   const [formData, setFormData] = useState({
@@ -51,54 +57,6 @@ const OrderCreate = () => {
           <Col md={3} className="p-2">
             <h2 className="mb-4">Crear Orden</h2>
             <Form onSubmit={handleSubmit} className="order-form">
-             {/* <Form.Group controlId="formName">
-                <Form.Label>Nombre</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingrese su nombre"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="formEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Ingrese su email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="formAddress">
-                <Form.Label>Dirección de Envío</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  placeholder="Ingrese su dirección de envío"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="formPaymentMethod">
-                <Form.Label>Método de Pago</Form.Label>
-                <Form.Control
-                  as="select"
-                  name="paymentMethod"
-                  value={formData.paymentMethod}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Seleccione un método de pago</option>
-                  <option value="efectivo">Efectivo</option>
-                  <option value="tarjeta">Tarjeta de Crédito/Débito</option>
-                </Form.Control>
-              </Form.Group> */ }
               <Table striped bordered className="product-table">
                 <thead>
                   <tr>
@@ -138,6 +96,13 @@ const OrderCreate = () => {
               <Button variant="primary" type="submit" className="submit-btn">
                 Crear Orden
               </Button>
+              <Wallet
+                initialization={{
+                  preferenceId:
+                    "1860116897-40b0a1b8-d11b-409f-9ae6-586daee177c0",
+                }}
+                customization={{ texts: { valueProp: "smart_option" } }}
+              />
             </Form>
           </Col>
         </Row>
