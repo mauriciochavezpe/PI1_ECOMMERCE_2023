@@ -79,6 +79,7 @@ const Myprofile = () => {
                 <Form.Label>Documento</Form.Label>
                 <Form.Control
                   type="text"
+                  as="select"
                   name="documentType"
                   value={userData.documentType}
                   onChange={handleChange}
@@ -108,6 +109,7 @@ const Myprofile = () => {
               <Form.Group controlId="name">
                 <Form.Label>Departamento</Form.Label>
                 <Form.Control
+                  as="select"
                   type="text"
                   name="department"
                   value={userData.department}
