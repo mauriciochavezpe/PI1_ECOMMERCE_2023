@@ -9,6 +9,10 @@ const Myprofile = () => {
   // Obtener la URL actual
   const [edit, setEdit] = useState(true);
   const { userData, loading } = useSelector((state) => state.userLogin);
+  const { departamento_list, tipodocumentos } = useSelector(
+    (state) => state.utilSlice
+  );
+
 
   useEffect(() => {
     // setProduct(obj.product);
@@ -79,7 +83,15 @@ const Myprofile = () => {
                   value={userData.documentType}
                   onChange={handleChange}
                   disabled={edit}
-                />
+                >
+                     {tipodocumentos.map((e, i) => {
+                    return (
+                      <option key={i} value={e}>
+                        {e}
+                      </option>
+                    );
+                  })}
+                </Form.Control>
               </Form.Group>
               <Form.Group controlId="name">
                 <Form.Label>Nro documento</Form.Label>
@@ -101,7 +113,15 @@ const Myprofile = () => {
                   value={userData.department}
                   onChange={handleChange}
                   disabled={edit}
-                />
+                >
+                  {departamento_list.map((e, i) => {
+                    return (
+                      <option key={i} value={e}>
+                        {e}
+                      </option>
+                    );
+                  })}
+                </Form.Control>
               </Form.Group>
               <Form.Group controlId="name">
                 <Form.Label>Provincia</Form.Label>
