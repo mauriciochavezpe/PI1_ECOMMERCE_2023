@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Col, Form, Button, Table } from "react-bootstrap";
+import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { changeQuanty, createOrder } from "../store/slice/sliceOrder";
 const urlpublic = process.env.REACT_APP_API_MERCADO_PAGO_PUBLIC_KEY;
-import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-const formatterPay = () => {
-  console.log("dasdadasda");
-};
 
 const OrderCreate = () => {
   initMercadoPago(urlpublic, {
