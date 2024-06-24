@@ -12,6 +12,7 @@ const OrderCreate = () => {
 
   const { orderItemsSelected } = useSelector((state) => state.orderSlice);
 
+  const [valueId, setValueId] = useState("1860116897-40b0a1b8-d11b-409f-9ae6-586daee177c0");
   const [formData, setFormData] = useState({
     name: "Raul Penilla",
     email: "rpenilla00@gmail.com",
@@ -51,9 +52,15 @@ const OrderCreate = () => {
     <>
       <Container>
         <Row className="justify-content-center mt-3">
+     
           <Col md={3} className="p-2">
             <h2 className="mb-4">Crear Orden</h2>
             <Form onSubmit={handleSubmit} className="order-form">
+            <Form.Control
+            type="text"
+            value={valueId}
+            onChange={(e) => setValueId(e.target.value)}
+          />
               <Table striped bordered className="product-table">
                 <thead>
                   <tr>
@@ -96,7 +103,7 @@ const OrderCreate = () => {
               <Wallet
                 initialization={{
                   preferenceId:
-                    "1860116897-40b0a1b8-d11b-409f-9ae6-586daee177c0",
+                  valueId,
                 }}
                 customization={{ texts: { valueProp: "smart_option" } }}
               />
