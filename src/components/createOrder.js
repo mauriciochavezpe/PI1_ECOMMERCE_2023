@@ -1,8 +1,12 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Col, Form, Button, Table } from "react-bootstrap";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import { changeQuanty, createOrder, createPreference } from "../store/slice/sliceOrder";
+import {
+  changeQuanty,
+  createOrder,
+  createPreference,
+} from "../store/slice/sliceOrder";
 const urlpublic = process.env.REACT_APP_API_MERCADO_PAGO_PUBLIC_KEY;
 
 const OrderCreate = () => {
@@ -36,27 +40,32 @@ const OrderCreate = () => {
     console.log(`Cambiando cantidad del producto ${productId} a ${value}`);
     dispatch(changeQuanty({ productId, quantity: value }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let arrItems = [];
-    let objProd = orderItemsSelected.map((e) => ({
-      id: e.id,
-      quantity: e.qtySelect,
-      subTotal: e.price,
-    }));
-    let totalPrice = orderItemsSelected
-      .reduce((total, item) => total + item.qtySelect * item.price, 0)
-      .toFixed(2);
 
-    let objPay = {
-      totalPrice: Number(totalPrice),
-      products: [...objProd],
-    };
-    arrItems.push({
-      title: e.name,
-      quantity: e.qtySelect,
-      unit_price: e.price,
-      currency_id: "PEN",
+    // let objProd = orderItemsSelected.map((e) => ({
+    //   id: e.id,
+    //   quantity: e.qtySelect,
+    //   subTotal: e.price,
+    // }));
+
+    // let totalPrice = orderItemsSelected
+    //   .reduce((total, item) => total + item.qtySelect * item.price, 0)
+    //   .toFixed(2);
+
+    // let objPay = {
+    //   totalPrice: Number(totalPrice),
+    //   products: [...objProd],
+    // };
+    orderItemsSelected.map((e) => {
+      arrItems.push({
+        title: e.name,
+        quantity: e.qtySelect,
+        unit_price: e.price,
+        currency_id: "PEN",
+      });
     });
 
     let obj2 = { items: arrItems };
