@@ -45,20 +45,20 @@ const OrderCreate = () => {
     e.preventDefault();
     let arrItems = [];
 
-    // let objProd = orderItemsSelected.map((e) => ({
-    //   id: e.id,
-    //   quantity: e.qtySelect,
-    //   subTotal: e.price,
-    // }));
+    let objProd = orderItemsSelected.map((e) => ({
+      id: e.id,
+      quantity: e.qtySelect,
+      subTotal: e.price,
+    }));
 
-    // let totalPrice = orderItemsSelected
-    //   .reduce((total, item) => total + item.qtySelect * item.price, 0)
-    //   .toFixed(2);
+    let totalPrice = orderItemsSelected
+      .reduce((total, item) => total + item.qtySelect * item.price, 0)
+      .toFixed(2);
 
-    // let objPay = {
-    //   totalPrice: Number(totalPrice),
-    //   products: [...objProd],
-    // };
+    let objPay = {
+      totalPrice: Number(totalPrice),
+      products: [...objProd],
+    };
     orderItemsSelected.map((e) => {
       arrItems.push({
         title: e.name,
@@ -69,11 +69,12 @@ const OrderCreate = () => {
     });
 
     let obj2 = { items: arrItems };
-    console.log(obj2);
-
-    // dispatch(createOrder(objPay));
-
+    //creacion de serverless
+    dispatch(createOrder(objPay));
+    
+    // servicio de MP
     dispatch(createPreference(obj2));
+
   };
 
   useEffect(() => {
