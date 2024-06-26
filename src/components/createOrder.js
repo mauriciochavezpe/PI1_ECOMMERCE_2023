@@ -63,8 +63,8 @@ const OrderCreate = () => {
       arrItems.push({
         title: e.name,
         quantity: e.qtySelect,
-        unit_price: e.price,
-        currency_id: "PEN",
+        unitPrice: e.price,
+        // currency_id: "PEN",
       });
     });
 
