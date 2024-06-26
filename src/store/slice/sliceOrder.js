@@ -8,6 +8,8 @@ const initialState = {
   error: "",
   value: 1110,
   order: {},
+  preferenceObj:{},
+  preferenceId:"",
   orderItemsSelected: [],
   showDetail: false,
   successCreate: null,
@@ -87,6 +89,28 @@ export const cancelOrder = createAsyncThunk(
     return data;
   }
 );
+
+
+export const createPreference = createAsyncThunk(
+  "orderSlice/createPreference",
+  async (body) => {
+    let sPath = process.env.REACT_APP_URL_ALL+"/payments/create_preference"
+    let config = {
+      method: "POST",
+      url:sPath,
+      headers: {
+        Authorization:
+          "Bearer " + JSON.parse(localStorage.getItem("TOKEN_COGNITO")).oauth2,
+      },
+      data: body,
+    };
+    const response = await axios.request(config); // Use the relative path to your API endpoint
+    const data = await response;
+    return data;
+  }
+);
+
+
 
 const orderSlice = createSlice({
   name: "orderSlice",
@@ -237,6 +261,24 @@ const orderSlice = createSlice({
     });
 
     builder.addCase(cancelOrder.rejected, (state, action) => {
+      // Add user to the state array
+      state.loading = false;
+      console.log("Error", action);
+      state.error = JSON.stringify(action);
+      state.showDetail = false;
+    });
+    //create preference
+    builder.addCase(createPreference.pending, (state, action) => {
+      // state.loading = true;
+      state.showDetail = false;
+    });
+    builder.addCase(createPreference.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.preferenceObj = action.payload.data;
+      state.preferenceId= action.payload.data.preference_id;
+    });
+
+    builder.addCase(createPreference.rejected, (state, action) => {
       // Add user to the state array
       state.loading = false;
       console.log("Error", action);

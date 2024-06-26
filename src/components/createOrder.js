@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Col, Form, Button, Table } from "react-bootstrap";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
-import { changeQuanty, createOrder } from "../store/slice/sliceOrder";
+import { changeQuanty, createOrder, createPreference } from "../store/slice/sliceOrder";
 const urlpublic = process.env.REACT_APP_API_MERCADO_PAGO_PUBLIC_KEY;
 
 const OrderCreate = () => {
@@ -10,19 +10,23 @@ const OrderCreate = () => {
     locale: "es-PE",
   });
 
-  const { orderItemsSelected } = useSelector((state) => state.orderSlice);
+  const { orderItemsSelected, preference, preferenceId } = useSelector(
+    (state) => state.orderSlice
+  );
 
-  const [valueId, setValueId] = useState("1860116897-40b0a1b8-d11b-409f-9ae6-586daee177c0");
-  const [formData, setFormData] = useState({
-    name: "Raul Penilla",
-    email: "rpenilla00@gmail.com",
-    address: "av. lima - Magdalena",
-    paymentMethod: "Credit card",
-  });
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const [valueId, setValueId] = useState(
+    "1860116897-40b0a1b8-d11b-409f-9ae6-586daee177c0"
+  );
+  // const [formData, setFormData] = useState({
+  //   name: "Raul Penilla",
+  //   email: "rpenilla00@gmail.com",
+  //   address: "av. lima - Magdalena",
+  //   paymentMethod: "Credit card",
+  // });
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData({ ...formData, [name]: value });
+  // };
   const dispatch = useDispatch();
   // Obtener la URL actual
 
@@ -34,6 +38,7 @@ const OrderCreate = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    let arrItems = [];
     let objProd = orderItemsSelected.map((e) => ({
       id: e.id,
       quantity: e.qtySelect,
@@ -42,25 +47,42 @@ const OrderCreate = () => {
     let totalPrice = orderItemsSelected
       .reduce((total, item) => total + item.qtySelect * item.price, 0)
       .toFixed(2);
+
     let objPay = {
       totalPrice: Number(totalPrice),
       products: [...objProd],
     };
-    dispatch(createOrder(objPay));
+    arrItems.push({
+      title: e.name,
+      quantity: e.qtySelect,
+      unit_price: e.price,
+      currency_id: "PEN",
+    });
+
+    let obj2 = { items: arrItems };
+    console.log(obj2);
+
+    // dispatch(createOrder(objPay));
+
+    dispatch(createPreference(obj2));
   };
+
+  useEffect(() => {
+    // dispatch(listProducts());
+  }, [preferenceId]);
+
   return (
     <>
       <Container>
         <Row className="justify-content-center mt-3">
-     
           <Col md={3} className="p-2">
             <h2 className="mb-4">Crear Orden</h2>
             <Form onSubmit={handleSubmit} className="order-form">
-            <Form.Control
-            type="text"
-            value={valueId}
-            onChange={(e) => setValueId(e.target.value)}
-          />
+              <Form.Control
+                type="text"
+                value={valueId}
+                onChange={(e) => setValueId(e.target.value)}
+              />
               <Table striped bordered className="product-table">
                 <thead>
                   <tr>
@@ -100,13 +122,14 @@ const OrderCreate = () => {
               <Button variant="primary" type="submit" className="submit-btn">
                 Crear Orden
               </Button>
-              <Wallet
-                initialization={{
-                  preferenceId:
-                  valueId,
-                }}
-                customization={{ texts: { valueProp: "smart_option" } }}
-              />
+              {preferenceId && (
+                <Wallet
+                  initialization={{
+                    preferenceId: preferenceId,
+                  }}
+                  customization={{ texts: { valueProp: "smart_option" } }}
+                />
+              )}
             </Form>
           </Col>
         </Row>
