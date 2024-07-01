@@ -3,6 +3,7 @@ import { getMyUser } from "../store/slice/sliceUserLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { oauth2 } from "../util/oAuth";
 import { useNavigate } from "react-router-dom";
+import ProductCarousel from "../components/ProductCarousel";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -48,7 +49,9 @@ const Login = () => {
 
   return (
     <>
-      <p>{isLogin ? "Estas logeado" : "no estas logeado"}</p>
+      {/* <p>{isLogin ? "Estas logeado" : "no estas logeado"}</p> */}
+      <ProductCarousel />
+    
     </>
   );
 };
